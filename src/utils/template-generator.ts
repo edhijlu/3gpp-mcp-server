@@ -14,7 +14,7 @@ export class TemplateGenerator {
   }
 
   async initialize(): Promise<void> {
-    console.log('Template Generator initialized');
+    // Template Generator initialization complete
   }
 
   async formatSpecificationSuggestions(

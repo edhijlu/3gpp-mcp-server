@@ -4,13 +4,13 @@
   "description": "Lightweight 3GPP MCP Server - Intelligent guidance approach for 3GPP specifications research",
   "author": "3GPP MCP Server Team",
   "license": "MIT",
-  "homepage": "https://github.com/your-org/3gpp-mcp-server",
+  "homepage": "https://github.com/edhijlu/3gpp-mcp-server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/3gpp-mcp-server.git"
+    "url": "https://github.com/edhijlu/3gpp-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/3gpp-mcp-server/issues"
+    "url": "https://github.com/edhijlu/3gpp-mcp-server/issues"
   },
   "keywords": [
     "mcp",

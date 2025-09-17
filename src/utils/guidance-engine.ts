@@ -25,7 +25,6 @@ export class GuidanceEngine {
   async initialize(): Promise<void> {
     await this.knowledgeBase.initialize();
     await this.templateGenerator.initialize();
-    console.log('Guidance Engine initialized');
   }
 
   async analyzeQuery(query: UserQuery): Promise<QueryAnalysis> {

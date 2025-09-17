@@ -1,62 +1,88 @@
-# Installation Guide - 5 Minutes to Expert Guidance
+# Installation Guide - 30 Seconds to Expert Guidance
 
-**Goal**: Get the 3GPP MCP Server running and integrated with your AI assistant in 5 minutes
+**Goal**: Get the 3GPP MCP Server running and integrated with your AI assistant in 30 seconds
 
 **Result**: Transform any compatible AI from generic responses to expert-level 3GPP guidance
 
 ---
 
-## Quick Prerequisites Check ✅
+## Quick Prerequisites Check
 
 Before starting, make sure you have:
-- **Node.js 18+** - [Download here](https://nodejs.org/) if needed
-- **Claude Desktop** or compatible AI assistant
-- **5 minutes** of focused time
+- **Node.js 18+** - [Download here](https://nodejs.org/) if needed (NPX included automatically)
+- **MCP-compatible AI assistant** (Claude Desktop recommended)
+- **30 seconds** of focused time
 - **Terminal/Command prompt** access
 
-**Don't worry if you're not technical** - these are simple copy-paste commands!
+**Don't worry if you're not technical** - this is one simple command!
 
 ---
 
-## Step 1: Automated Setup (2 minutes) 📥
+## Step 1: Direct MCP Setup (30 seconds)
 
-### Option A: Automated Setup Script (Recommended)
+### Option A: Claude Desktop (Simplest Method)
 
-**For Windows users:**
-```cmd
-# Download and run setup
-git clone https://github.com/your-org/3gpp-mcp-server.git
-cd 3gpp-mcp-server/3gpp-mcp-server-v2
-mcp-setup.bat
+**Just one command - no installation, no git clone, no configuration files:**
+```bash
+claude mcp add 3gpp-charging npx 3gpp-mcp-charging@latest serve
 ```
 
-**For Mac/Linux users:**
-```bash
-# Download and run setup
-git clone https://github.com/your-org/3gpp-mcp-server.git
-cd 3gpp-mcp-server/3gpp-mcp-server-v2
-./mcp-setup.sh
+**Done!** That's it. The MCP server runs directly from NPM on-demand.
+
+### Option B: Manual MCP Configuration (All Clients)
+
+**Claude Desktop** (`~/.config/Claude/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "3gpp-charging": {
+      "command": "npx",
+      "args": ["3gpp-mcp-charging@latest", "serve"],
+      "description": "3GPP Charging & Billing Expert Guidance"
+    }
+  }
+}
 ```
 
-**What the script does:**
-- ✅ Checks Node.js version compatibility
-- ✅ Installs all dependencies
-- ✅ Builds the MCP server
-- ✅ Tests server functionality
-- ✅ Generates Claude Desktop configuration
-- ✅ Provides next steps
+**VS Code** (settings.json):
+```json
+{
+  "mcp.servers": {
+    "3gpp-charging": {
+      "command": "npx",
+      "args": ["3gpp-mcp-charging@latest", "serve"],
+      "description": "3GPP Charging & Billing Expert Guidance"
+    }
+  }
+}
+```
 
-### Option B: Manual Setup
+---
 
-If you prefer to do it manually:
+## Step 2: Auto-Configuration Alternative (1 minute)
+
+**If you prefer guided installation:**
+```bash
+npx 3gpp-mcp-charging@latest init
+
+# Or client-specific
+npx 3gpp-mcp-charging@latest init --client claude
+```
+
+---
+
+## Step 3: Backup Method (If NPX Fails)
+
+**Manual installation from source:**
 
 ```bash
-# Download the 3GPP MCP Server
-git clone https://github.com/your-org/3gpp-mcp-server.git
+# Download the source code
+git clone https://github.com/edhijlu/3gpp-mcp-server.git
 cd 3gpp-mcp-server/3gpp-mcp-server-v2
 
-# Install dependencies
+# Install and build
 npm install
+npm run build
 
 # Build the server
 npm run build
@@ -76,9 +102,11 @@ Guidance engine initialized successfully
 
 ---
 
-## Step 2: Connect to Claude Desktop (2 minutes) 🔗
+## Step 2: Connect to Your AI Assistant (2 minutes)
 
-### Find Your Claude Desktop Configuration
+### Find Your AI Assistant Configuration
+
+**For Claude Desktop:**
 
 **On Windows**:
 - File location: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -93,12 +121,19 @@ Guidance engine initialized successfully
 
 ### Add the 3GPP MCP Server
 
+**For Claude Desktop:**
+
 **Option A: Use Generated Configuration (Recommended)**
 
-If you used the setup script, it created a file called `claude_desktop_config_generated.json` with the correct paths for your system. Simply:
+If you used the setup script, it created a configuration file with the correct paths for your system. For Claude Desktop users:
 
 1. Copy the contents of `claude_desktop_config_generated.json`
 2. Paste into your Claude Desktop configuration file
+
+**For other MCP-compatible AI assistants:**
+1. Use the generated configuration as a reference
+2. Follow your AI assistant's specific MCP server setup instructions
+3. Adapt the configuration format as needed for your platform
 
 **Option B: Manual Configuration**
 
@@ -169,10 +204,10 @@ Close and reopen Claude Desktop to load the new configuration.
 
 ---
 
-## Step 3: Verify It's Working (1 minute) ✨
+## Step 3: Verify It's Working (1 minute)
 
 ### Test Query
-In Claude Desktop, ask this exact question:
+In your AI assistant, ask this exact question:
 
 ```
 Can you give me a strategic learning path for understanding 5G authentication, suitable for someone with technical background but new to 3GPP?
@@ -180,18 +215,18 @@ Can you give me a strategic learning path for understanding 5G authentication, s
 
 ### What Success Looks Like
 You should get a detailed response that includes:
-- ✅ **Specific specification sections** (like "TS 33.501 Section 6")
-- ✅ **Structured learning phases** with timeframes
-- ✅ **Implementation components** and requirements
-- ✅ **Next steps** and related topics
-- ✅ **Expert methodology** and best practices
+- **Specific specification sections** (like "TS 33.501 Section 6")
+- **Structured learning phases** with timeframes
+- **Implementation components** and requirements
+- **Next steps** and related topics
+- **Expert methodology** and best practices
 
 ### What Failure Looks Like
 If you get a generic response like "5G authentication uses various methods...", the MCP server isn't connected properly.
 
 ---
 
-## Troubleshooting Common Issues 🔧
+## Troubleshooting Common Issues
 
 ### Issue: "Command not found: node"
 **Problem**: Node.js isn't installed or not in PATH
@@ -215,12 +250,12 @@ npm update
 npm run build
 ```
 
-### Issue: "Claude doesn't show enhanced responses"
+### Issue: "AI assistant doesn't show enhanced responses"
 **Problem**: MCP server not connected properly
 **Solutions**:
 1. Check the configuration file path is correct
 2. Verify the `cwd` path points to your actual installation
-3. Restart Claude Desktop completely
+3. Restart your AI assistant completely
 4. Test that `npm start` works in the server directory
 
 ### Issue: "Server starts but no improvement in responses"
@@ -232,12 +267,12 @@ npm run build
 
 ---
 
-## Advanced Configuration (Optional) ⚙️
+## Advanced Configuration (Optional)
 
 ### Multiple AI Assistants
-You can connect the same MCP server to multiple AI assistants:
+You can connect the same MCP server to multiple AI assistants. The configuration format may vary by platform:
 
-**For ChatGPT** (if supported):
+**General MCP Configuration Pattern:**
 ```json
 {
   "mcpServers": {
@@ -249,6 +284,8 @@ You can connect the same MCP server to multiple AI assistants:
   }
 }
 ```
+
+**Note:** Consult your AI assistant's documentation for the exact configuration format and MCP support details.
 
 ### Custom Port (if needed)
 ```json
@@ -278,20 +315,20 @@ You can connect the same MCP server to multiple AI assistants:
 
 ---
 
-## What You've Just Accomplished 🎉
+## What You've Just Accomplished
 
 ### Before Installation:
-- ❌ Generic AI responses to 3GPP questions
-- ❌ No guidance on where to start learning
-- ❌ Random information without methodology
-- ❌ Hours of confused searching
+- Generic AI responses to 3GPP questions
+- No guidance on where to start learning
+- Random information without methodology
+- Hours of confused searching
 
 ### After Installation:
-- ✅ Expert-level 3GPP guidance on demand
-- ✅ Structured learning paths for any topic
-- ✅ Specific specification sections and roadmaps
-- ✅ Professional methodology and best practices
-- ✅ Implementation guidance and pitfall avoidance
+- Expert-level 3GPP guidance on demand
+- Structured learning paths for any topic
+- Specific specification sections and roadmaps
+- Professional methodology and best practices
+- Implementation guidance and pitfall avoidance
 
 ### You Now Have Access To:
 1. **Expert Research Methodology** - How telecommunications professionals approach learning
@@ -302,7 +339,7 @@ You can connect the same MCP server to multiple AI assistants:
 
 ---
 
-## Your Next Steps 🚀
+## Your Next Steps
 
 ### Immediate (Next 10 minutes):
 1. **[Try Your First Queries](first-steps.md)** - Test different types of 3GPP questions
@@ -321,7 +358,7 @@ You can connect the same MCP server to multiple AI assistants:
 
 ---
 
-## Getting Help 🆘
+## Getting Help
 
 ### If Something Goes Wrong:
 1. **Check this guide** - Most issues have solutions above
@@ -335,14 +372,14 @@ You can connect the same MCP server to multiple AI assistants:
 - **Issues**: Report problems to help improve the system
 
 ### Success Indicators:
-- ✅ **Immediate difference** in response quality for 3GPP questions
-- ✅ **Specific guidance** instead of generic information
-- ✅ **Learning paths** that feel manageable and structured
-- ✅ **Implementation insights** that save time and prevent mistakes
+- **Immediate difference** in response quality for 3GPP questions
+- **Specific guidance** instead of generic information
+- **Learning paths** that feel manageable and structured
+- **Implementation insights** that save time and prevent mistakes
 
 ---
 
-**Congratulations! You've just transformed your AI assistant into a 3GPP expert consultant.** 🎯
+**Congratulations! You've just transformed your AI assistant into a 3GPP expert consultant.**
 
 *Ready to experience the difference? Try asking about any 3GPP topic and prepare to be amazed by the quality of guidance you receive!*
 

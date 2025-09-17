@@ -1,0 +1,34 @@
+# Source files
+src/
+tsconfig.json
+tsconfig.test.json
+
+# Tests
+tests/
+jest.config.js
+*.test.ts
+*.test.js
+
+# Development files
+.git/
+.github/
+.vscode/
+*.log
+coverage/
+
+# Documentation (keep README.md)
+docs/
+*.md
+!README.md
+
+# Build artifacts that shouldn't be published
+node_modules/
+*.tgz
+.env
+.env.local
+
+# Keep these for NPM distribution
+!dist/
+!bin/
+!package.json
+!README.md
