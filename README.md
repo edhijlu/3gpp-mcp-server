@@ -1,4 +1,4 @@
-# 3GPP MCP Server v2 🚀
+# 3GPP MCP Server v2
 
 **Transform your AI assistant into a 3GPP telecommunications expert in 5 minutes!**
 
@@ -8,8 +8,8 @@
 
 ## What This Does
 
-**Before**: Ask AI about 5G authentication → Get generic, unhelpful response
-**After**: Ask AI + 3GPP MCP Server → Get expert-level guidance with specifications, learning paths, and implementation roadmaps
+**Before**: Ask AI about 5G authentication - Get generic, unhelpful response
+**After**: Ask AI + 3GPP MCP Server - Get expert-level guidance with specifications, learning paths, and implementation roadmaps
 
 ## Quick Start (5 Minutes)
 
@@ -25,34 +25,41 @@ cd 3gpp-mcp-server
 mcp-setup.bat         # Windows
 ```
 
-### 2. Connect to Claude Desktop or ChatGPT
+### 2. Connect to Your AI Assistant
+
+**For Claude Desktop:**
 1. Copy configuration from generated `claude_desktop_config_generated.json`
 2. Paste into your Claude Desktop config file
 3. Restart Claude Desktop
 
+**For ChatGPT or other MCP-compatible assistants:**
+1. Follow your AI assistant's MCP server configuration instructions
+2. Use the generated configuration as a reference
+3. Restart your AI application
+
 ### 3. Test It Works
-Ask Claude: *"Can you give me a strategic learning path for understanding 5G authentication?"*
+Ask your AI assistant: *"Can you give me a strategic learning path for understanding 5G authentication?"*
 
 You should get expert-level guidance with specific specification sections, learning phases, and implementation details!
 
 ## What You Get
 
-### 🎯 **Expert Research Methodology**
+### **Expert Research Methodology**
 - Structured learning paths optimized for comprehension
 - Specific 3GPP specification sections to read
 - Implementation roadmaps with timelines
 
-### 🔧 **Practical Implementation Guidance**
+### **Practical Implementation Guidance**
 - Component-level implementation requirements
 - Common pitfalls and how to avoid them
 - Testing strategies and validation approaches
 
-### 📚 **Educational Value**
+### **Educational Value**
 - Progressive learning from basics to advanced topics
 - Connection between different 3GPP concepts
 - Professional methodology for systematic study
 
-### ⚡ **Performance Benefits**
+### **Performance Benefits**
 - <500ms response times
 - <100MB memory usage
 - Support for 1000+ concurrent users
@@ -98,22 +105,22 @@ You should get expert-level guidance with specific specification sections, learn
 
 ## Documentation
 
-### 🏁 **Getting Started**
+### **Getting Started**
 - **[Quick Start](docs/basics/README.md)** - 30-second overview and setup options
 - **[What Is This?](docs/basics/what-is-3gpp-mcp-server.md)** - Non-technical explanation
 - **[Installation Guide](docs/basics/installation-guide.md)** - 5-minute setup with screenshots
 - **[MCP Explained Simply](docs/basics/mcp-explained-simply.md)** - Understanding the technology
 
-### 📊 **See the Difference**
+### **See the Difference**
 - **[Side-by-Side Examples](docs/comparisons/side-by-side-examples.md)** - Same queries, dramatically different results
 - **[LLM vs MCP Comparison](docs/comparisons/)** - Detailed before/after analysis
 
-### 🎯 **Real-World Examples**
+### **Real-World Examples**
 - **[Research 5G Authentication](docs/how-to/research-5g-authentication/)** - Complete workflow example
 - **[Find Implementation Guidance](docs/how-to/find-implementation-guidance/)** - Requirements to specifications
 - **[Troubleshoot Protocol Issues](docs/how-to/troubleshoot-protocol-issues/)** - Systematic problem solving
 
-### 👥 **User Journeys**
+### **User Journeys**
 - **[Telecom Newcomer](docs/user-journeys/telecom-newcomer.md)** - 8-week learning plan
 - **[Experienced Developer](docs/user-journeys/experienced-developer.md)** - Software engineer entering telecom
 - **[Research Professional](docs/user-journeys/research-professional.md)** - Academic or industry researcher
@@ -121,21 +128,21 @@ You should get expert-level guidance with specific specification sections, learn
 ## Requirements
 
 - **Node.js 18+** - [Download from nodejs.org](https://nodejs.org/)
-- **Claude Desktop** or MCP-compatible AI assistant
+- **MCP-compatible AI assistant** (Claude Desktop, ChatGPT, or others)
 - **5 minutes** for setup
 
 ## Installation Options
 
 ### Option 1: Automated Setup (Recommended)
 ```bash
-git clone https://github.com/your-org/3gpp-mcp-server.git
+git clone https://github.com/edhijlu/3gpp-mcp-server.git
 cd 3gpp-mcp-server/3gpp-mcp-server-v2
 ./mcp-setup.sh  # or mcp-setup.bat on Windows
 ```
 
 ### Option 2: Manual Setup
 ```bash
-git clone https://github.com/your-org/3gpp-mcp-server.git
+git clone https://github.com/edhijlu/3gpp-mcp-server.git
 cd 3gpp-mcp-server/3gpp-mcp-server-v2
 npm install
 npm run build
@@ -207,18 +214,18 @@ npm test -- --testNamePattern="Integration"
 Unlike traditional approaches that try to host massive datasets:
 
 **v2 provides intelligent guidance that:**
-- ✅ Teaches research methodology
-- ✅ Points to authoritative sources
-- ✅ Adapts to user expertise level
-- ✅ Provides implementation roadmaps
-- ✅ Stays current with latest standards
+- Teaches research methodology
+- Points to authoritative sources
+- Adapts to user expertise level
+- Provides implementation roadmaps
+- Stays current with latest standards
 
 **Benefits:**
-- 🚀 95% resource reduction (50MB vs 15GB+)
-- ⚡ 10x faster responses (<500ms vs 3-5 seconds)
-- 📚 Educational value - teaches methodology
-- 🔄 Always current - guides to live sources
-- 📈 Highly scalable (1000+ concurrent users)
+- 95% resource reduction (50MB vs 15GB+)
+- 10x faster responses (<500ms vs 3-5 seconds)
+- Educational value - teaches methodology
+- Always current - guides to live sources
+- Highly scalable (1000+ concurrent users)
 
 ## Contributing
 
@@ -226,7 +233,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ### Development Setup
 ```bash
-git clone https://github.com/your-org/3gpp-mcp-server.git
+git clone https://github.com/edhijlu/3gpp-mcp-server.git
 cd 3gpp-mcp-server/3gpp-mcp-server-v2
 npm install
 npm run dev  # Start development server
@@ -239,16 +246,16 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Support
 
 - **Documentation**: Comprehensive guides in the `/docs` folder
-- **Issues**: [GitHub Issues](https://github.com/your-org/3gpp-mcp-server/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/3gpp-mcp-server/discussions)
+- **Issues**: [GitHub Issues](https://github.com/edhijlu/3gpp-mcp-server/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/edhijlu/3gpp-mcp-server/discussions)
 
 ## Quick Links
 
-- 🚀 **[Get Started in 5 Minutes](docs/basics/installation-guide.md)**
-- 📊 **[See Before/After Examples](docs/comparisons/side-by-side-examples.md)**
-- 🎯 **[Try a Complete Workflow](docs/how-to/research-5g-authentication/)**
-- 👥 **[Find Your User Journey](docs/user-journeys/)**
+- **[Get Started in 5 Minutes](docs/basics/installation-guide.md)**
+- **[See Before/After Examples](docs/comparisons/side-by-side-examples.md)**
+- **[Try a Complete Workflow](docs/how-to/research-5g-authentication/)**
+- **[Find Your User Journey](docs/user-journeys/)**
 
 ---
 
-**Ready to transform your 3GPP research?** Start with the [installation guide](docs/basics/installation-guide.md) and experience expert-level guidance in minutes! 🎯
+**Ready to transform your 3GPP research?** Start with the [installation guide](docs/basics/installation-guide.md) and experience expert-level guidance in minutes!
