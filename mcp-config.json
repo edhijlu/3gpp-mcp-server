@@ -1,0 +1,191 @@
+{
+  "name": "3gpp-guidance",
+  "version": "2.0.0",
+  "description": "Lightweight 3GPP MCP Server - Intelligent guidance approach for 3GPP specifications research",
+  "author": "3GPP MCP Server Team",
+  "license": "MIT",
+  "homepage": "https://github.com/your-org/3gpp-mcp-server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/3gpp-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/3gpp-mcp-server/issues"
+  },
+  "keywords": [
+    "mcp",
+    "3gpp",
+    "telecommunications",
+    "5g",
+    "lte",
+    "mobile-networks",
+    "specifications",
+    "guidance",
+    "ai-assistant"
+  ],
+  "categories": [
+    "telecommunications",
+    "research",
+    "education",
+    "standards"
+  ],
+  "mcp": {
+    "mcpVersion": "2024-11-05",
+    "capabilities": {
+      "tools": {
+        "listChanged": true
+      },
+      "resources": {
+        "subscribe": true,
+        "listChanged": true
+      },
+      "prompts": {
+        "listChanged": true
+      }
+    },
+    "tools": [
+      {
+        "name": "guide_specification_search",
+        "description": "Helps users formulate effective specification searches and provides targeted guidance for finding relevant 3GPP specifications",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "The search query or topic of interest"
+            },
+            "userLevel": {
+              "type": "string",
+              "enum": ["beginner", "intermediate", "expert"],
+              "description": "User expertise level for tailored guidance"
+            },
+            "domain": {
+              "type": "string",
+              "description": "Specific domain or area of focus (optional)"
+            }
+          },
+          "required": ["query"]
+        }
+      },
+      {
+        "name": "explain_3gpp_structure",
+        "description": "Provides educational content about 3GPP organization, specification series, and working groups",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "focus": {
+              "type": "string",
+              "enum": ["overview", "series", "working_groups", "releases"],
+              "description": "Specific aspect of 3GPP structure to explain"
+            }
+          }
+        }
+      },
+      {
+        "name": "map_requirements_to_specs",
+        "description": "Maps technical requirements to appropriate 3GPP specifications with reading order and implementation guidance",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "requirements": {
+              "type": "string",
+              "description": "Technical requirements or use case description"
+            },
+            "implementationFocus": {
+              "type": "boolean",
+              "description": "Whether to focus on implementation aspects"
+            }
+          },
+          "required": ["requirements"]
+        }
+      },
+      {
+        "name": "generate_research_strategy",
+        "description": "Creates comprehensive research approaches for complex 3GPP topics with phased methodology",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string",
+              "description": "Research topic or area of investigation"
+            },
+            "complexity": {
+              "type": "string",
+              "enum": ["basic", "intermediate", "advanced"],
+              "description": "Complexity level of the research"
+            },
+            "timeframe": {
+              "type": "string",
+              "description": "Available timeframe for research (optional)"
+            }
+          },
+          "required": ["topic"]
+        }
+      }
+    ],
+    "resources": [
+      {
+        "uri": "3gpp://knowledge/series",
+        "name": "3GPP Specification Series Guide",
+        "description": "Comprehensive guide to 3GPP specification series (21-38) with descriptions and focus areas",
+        "mimeType": "text/markdown"
+      },
+      {
+        "uri": "3gpp://knowledge/protocols",
+        "name": "Protocol Relationship Mapping",
+        "description": "Protocol relationship mapping and guidance for NAS, RRC, PDCP, and other 3GPP protocols",
+        "mimeType": "text/markdown"
+      },
+      {
+        "uri": "3gpp://knowledge/research-patterns",
+        "name": "Research Methodology Patterns",
+        "description": "Common research methodologies and patterns for effective 3GPP specification study",
+        "mimeType": "text/markdown"
+      }
+    ],
+    "prompts": [
+      {
+        "name": "explain_3gpp_procedure",
+        "description": "Template for explaining specific 3GPP procedures in detail with context and examples",
+        "arguments": [
+          {
+            "name": "procedure_name",
+            "description": "Name of the 3GPP procedure to explain",
+            "required": true
+          },
+          {
+            "name": "specification",
+            "description": "Relevant specification (e.g., TS 24.501)",
+            "required": false
+          },
+          {
+            "name": "detail_level",
+            "description": "Level of detail: overview, detailed, or implementation",
+            "required": false
+          }
+        ]
+      },
+      {
+        "name": "compare_specifications",
+        "description": "Template for comparing two specifications with structured analysis of differences and relationships",
+        "arguments": [
+          {
+            "name": "spec_a",
+            "description": "First specification to compare",
+            "required": true
+          },
+          {
+            "name": "spec_b",
+            "description": "Second specification to compare",
+            "required": true
+          },
+          {
+            "name": "comparison_aspects",
+            "description": "Specific aspects to compare (e.g., functionality, architecture, evolution)",
+            "required": false
+          }
+        ]
+      }
+    ]
+  }
+}
