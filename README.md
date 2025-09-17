@@ -16,8 +16,8 @@
 ### 1. Automated Setup
 ```bash
 # Clone and setup
-git clone https://github.com/your-org/3gpp-mcp-server.git
-cd 3gpp-mcp-server/3gpp-mcp-server-v2
+git clone https://github.com/edhijlu/3gpp-mcp-server.git
+cd 3gpp-mcp-server
 
 # Run setup script
 ./mcp-setup.sh        # Mac/Linux
@@ -25,7 +25,7 @@ cd 3gpp-mcp-server/3gpp-mcp-server-v2
 mcp-setup.bat         # Windows
 ```
 
-### 2. Connect to Claude Desktop
+### 2. Connect to Claude Desktop or ChatGPT
 1. Copy configuration from generated `claude_desktop_config_generated.json`
 2. Paste into your Claude Desktop config file
 3. Restart Claude Desktop
