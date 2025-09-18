@@ -1,7 +1,7 @@
 {
   "name": "3gpp-mcp-charging",
-  "version": "2.0.5",
-  "description": "3GPP Charging & Billing MCP Server - Expert guidance for telecom charging systems",
+  "version": "3.0.0",
+  "description": "3GPP Charging & Billing MCP Server - Direct access to TSpec-LLM and 3GPP specifications",
   "main": "dist/index.js",
   "type": "commonjs",
   "bin": {
@@ -51,7 +51,9 @@
     "inquirer": "^8.2.6",
     "chalk": "^4.1.2",
     "ora": "^5.4.1",
-    "boxen": "^5.1.2"
+    "boxen": "^5.1.2",
+    "axios": "^1.6.0",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@types/node": "^24.5.0",

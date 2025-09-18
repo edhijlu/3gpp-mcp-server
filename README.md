@@ -1,6 +1,6 @@
-# 3GPP MCP Server v2 - Charging & Billing Expert
+# 3GPP MCP Server V3.0.0 - Direct Specification Access
 
-**Transform your AI assistant into a 3GPP charging and billing expert in 5 minutes!**
+**Transform your AI assistant into a 3GPP specification expert with direct access to TSpec-LLM's 535M word dataset!**
 
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-brightgreen)](https://modelcontextprotocol.io/)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
@@ -8,8 +8,24 @@
 
 ## What This Does
 
-**Before**: Ask AI about 5G charging or billing - Get generic, unhelpful response
-**After**: Ask AI + 3GPP MCP Server - Get expert-level guidance with charging specifications, implementation roadmaps, and billing integration strategies
+**Before**: Ask AI about 3GPP specifications - Get generic responses based on training data
+**After**: Ask AI + 3GPP MCP Server V3.0.0 - Get direct access to current specification content with structured, agent-ready responses
+
+## Revolutionary V3.0.0 Architecture
+
+V3.0.0 represents the **True MCP** approach - lightweight API bridge providing direct specification data:
+
+```
+Agent Query → MCP Tools → External APIs → Real Specification Data
+```
+
+### Key Benefits:
+- 🏗️ **True MCP Architecture** - Lightweight API bridge (~10MB vs 15GB+)
+- ⚡ **Sub-500ms responses** - Intelligent caching with external API integration
+- 🤖 **Agent-optimized** - Structured JSON responses for AI agent consumption
+- 📊 **Real specification data** - Direct access to TSpec-LLM's 535M word dataset
+- 🔗 **External API integration** - Hugging Face + 3GPP.org APIs
+- 📈 **Infinite scalability** - Stateless API calls, no local storage limits
 
 ## Quick Start (30 Seconds!)
 
@@ -17,10 +33,25 @@
 
 **Claude Desktop users:**
 ```bash
-claude mcp add 3gpp-charging npx 3gpp-mcp-charging@latest serve
+claude mcp add 3gpp-server npx 3gpp-mcp-charging@latest serve
 ```
 
-**Done!** No installation, no configuration files, no git clone needed. The server runs directly from NPM.
+**For other MCP clients:**
+Add this to your MCP configuration:
+```json
+{
+  "mcpServers": {
+    "3gpp-server": {
+      "command": "npx",
+      "args": ["3gpp-mcp-charging@latest", "serve"],
+      "description": "3GPP MCP Server - Direct access to TSpec-LLM and 3GPP specifications",
+      "env": {
+        "HUGGINGFACE_TOKEN": "optional-for-enhanced-access"
+      }
+    }
+  }
+}
+```
 
 ### 🎯 Alternative: Auto-Configuration
 
@@ -34,289 +65,195 @@ npx 3gpp-mcp-charging@latest init --client vscode
 npx 3gpp-mcp-charging@latest init --client cursor
 ```
 
-The installer will:
-- ✅ Auto-detect your AI client (Claude Desktop, VS Code, Cursor)
-- ✅ Configure your AI client automatically
-- ✅ Test the connection
-- ✅ No local files or git repositories needed
-
 ### 🧪 Test It Works
-Ask your AI assistant: *"Can you give me a strategic learning path for implementing 5G converged charging with CHF?"*
 
-You should get expert-level guidance with specific charging specifications, implementation phases, and billing integration details!
+Ask your AI assistant: *"Search for 5G CHF implementation requirements in TS 32.290"*
 
-## What You Get
+You should get structured specification content with implementation guidance, dependencies, and testing considerations!
 
-### **Expert Charging & Billing Research Methodology**
-- Structured learning paths for charging systems implementation
-- Specific 3GPP charging specification sections to read
-- Billing integration roadmaps with timelines
-
-### **Practical Charging Implementation Guidance**
-- Component-level charging system requirements
-- Common billing integration pitfalls and how to avoid them
-- Testing strategies for charging systems validation
-
-### **Educational Value for Telecom Billing**
-- Progressive learning from basic charging concepts to 5G converged charging
-- Connection between policy control, charging, and billing systems
-- Professional methodology for systematic charging system study
-
-### **Performance Benefits**
-- <500ms response times
-- <100MB memory usage
-- Support for 1000+ concurrent users
-- 95% resource reduction vs. data hosting approach
-
-## Available Tools
+## Available Tools (V3.0.0)
 
 | Tool | Purpose | Input | Output |
 |------|---------|-------|--------|
-| `guide_specification_search` | Find relevant charging specs | Charging query + expertise level | Charging spec suggestions + search strategy |
-| `explain_3gpp_structure` | Learn 3GPP charging organization | Charging focus area | Educational content + charging navigation |
-| `map_requirements_to_specs` | Map charging needs to specs | Charging requirements | Primary charging specs + reading order |
-| `generate_research_strategy` | Create charging research plan | Charging topic + complexity | Phased charging approach + timeline |
+| `search_specifications` | Direct TSpec-LLM search | Query + filters | Structured spec results + relevance scores |
+| `get_specification_details` | Comprehensive spec details | Specification ID | Full metadata + implementation guidance |
+| `compare_specifications` | Multi-spec comparison | Array of spec IDs | Comparison matrix + migration analysis |
+| `find_implementation_requirements` | Requirements extraction | Spec scope + focus | Technical requirements + testing guidance |
 
-## Available Resources
+## Example Queries
 
-| Resource | Purpose | Content |
-|----------|---------|---------|
-| `3gpp://knowledge/series` | Specification series guide | Complete guide to 3GPP series 21-38 with charging focus |
-| `3gpp://knowledge/protocols` | Protocol relationships | Charging protocols: CHF, OCS, PCRF, PCF, Diameter mappings |
-| `3gpp://knowledge/research-patterns` | Research methodologies | Proven charging research patterns and billing approaches |
+**Direct Specification Search:**
+```
+"Find charging procedures in 5G service-based architecture"
+→ Returns: TS 32.290 excerpts, CHF implementation details, Nchf interface specifications
+```
+
+**Implementation Requirements:**
+```
+"Extract implementation requirements for converged charging in Release 17"
+→ Returns: Technical requirements, dependencies, testing considerations, compliance notes
+```
+
+**Specification Comparison:**
+```
+"Compare charging evolution from TS 32.240 to TS 32.290"
+→ Returns: Evolution timeline, migration analysis, implementation impact assessment
+```
+
+## What You Get
+
+### **Direct Specification Content**
+- Real-time access to TSpec-LLM's comprehensive 3GPP dataset
+- Structured content excerpts with relevance scoring
+- Official specification metadata integration
+
+### **Agent-Ready Responses**
+- JSON-formatted responses optimized for AI agent consumption
+- Consistent schema across all tool responses
+- Rich metadata embedded in all responses
+
+### **Implementation Intelligence**
+- Technical requirements extraction from specifications
+- Dependency analysis and implementation guidance
+- Testing considerations and compliance mapping
+
+### **Performance Benefits**
+- <500ms cached response times
+- <2s fresh API call responses
+- <10MB memory footprint (stateless design)
+- Unlimited concurrent users (external API scaling)
+
+## Architecture
+
+### Core Components
+
+#### External API Integration Layer
+- **TSpec-LLM Client**: Direct integration with TSpec-LLM dataset via Hugging Face APIs
+- **3GPP API Client**: Integration with official 3GPP.org APIs for metadata
+- **API Manager**: Unified orchestration layer for all external APIs
+
+#### MCP Tool Layer
+- **search_specifications.ts**: Direct specification search implementation
+- **get_specification_details.ts**: Comprehensive specification details
+- **compare_specifications.ts**: Multi-specification comparison
+- **find_implementation_requirements.ts**: Requirements extraction
+
+#### Caching & Performance
+- **NodeCache**: Intelligent API response caching
+- **Rate Limiting**: Respectful external API usage
+- **Error Handling**: Robust API integration with fallbacks
 
 ## Project Structure
 
 ```
 3gpp-mcp-server-v2/
-├── src/                          # Source code
-│   ├── index.ts                  # MCP server entry point
-│   ├── types/guidance.ts         # TypeScript interfaces
-│   └── utils/                    # Core components
-│       ├── guidance-engine.ts    # Query analysis and guidance generation
-│       ├── knowledge-base.ts     # 3GPP domain knowledge
-│       └── template-generator.ts # Response formatting
-├── docs/                         # User documentation
-│   ├── basics/                   # Getting started guides
-│   ├── how-to/                   # Real-world workflows
-│   ├── comparisons/              # Before/after examples
-│   └── user-journeys/            # Role-specific guides
+├── src/                          # V3.0.0 source code
+│   ├── api/                      # External API integration layer
+│   │   ├── tspec-llm-client.ts   # TSpec-LLM Hugging Face client
+│   │   ├── tgpp-api-client.ts    # 3GPP.org official API client
+│   │   ├── api-manager.ts        # Unified API orchestration
+│   │   └── index.ts              # API exports
+│   ├── tools/                    # MCP tool implementations
+│   │   ├── search-specifications.ts           # Direct specification search
+│   │   ├── get-specification-details.ts       # Comprehensive spec details
+│   │   ├── compare-specifications.ts          # Multi-spec comparison
+│   │   ├── find-implementation-requirements.ts # Requirements extraction
+│   │   └── index.ts              # Tool exports
+│   ├── types/                    # TypeScript interfaces
+│   └── index.ts                  # MCP server implementation
+├── bin/                          # CLI installation tools
+├── docs/                         # Documentation
 ├── tests/                        # Test suite
-├── mcp-setup.sh/.bat            # Automated setup scripts
-└── claude-desktop-config.json   # Configuration templates
+└── package.json                  # NPM package configuration
 ```
-
-## Documentation
-
-### **Getting Started**
-- **[Quick Start](docs/basics/README.md)** - 30-second overview and setup options
-- **[What Is This?](docs/basics/what-is-3gpp-mcp-server.md)** - Non-technical explanation
-- **[Installation Guide](docs/basics/installation-guide.md)** - 5-minute setup with screenshots
-- **[MCP Explained Simply](docs/basics/mcp-explained-simply.md)** - Understanding the technology
-
-### **See the Difference**
-- **[Side-by-Side Examples](docs/comparisons/side-by-side-examples.md)** - Same queries, dramatically different results
-- **[LLM vs MCP Comparison](docs/comparisons/)** - Detailed before/after analysis
-
-### **Real-World Examples**
-- **[Research 5G Charging](docs/how-to/research-5g-charging/)** - Complete charging workflow example
-- **[Find Billing Implementation Guidance](docs/how-to/find-billing-implementation-guidance/)** - Charging requirements to specifications
-- **[Troubleshoot Charging Issues](docs/how-to/troubleshoot-charging-issues/)** - Systematic charging problem solving
-
-### **User Journeys**
-- **[Telecom Charging Newcomer](docs/user-journeys/telecom-newcomer.md)** - 8-week charging & billing learning plan
-- **[Experienced Developer](docs/user-journeys/experienced-developer.md)** - Software engineer entering telecom charging
-- **[Billing System Architect](docs/user-journeys/billing-system-architect.md)** - Charging system design and integration
 
 ## Requirements
 
 - **Node.js 18+** - [Download from nodejs.org](https://nodejs.org/)
 - **MCP-compatible AI assistant** (Claude Desktop, VS Code, Cursor, or others)
-- **2 minutes** for setup (with NPM installation)
+- **Internet connection** - For external API access
+- **Optional: Hugging Face token** - For enhanced API access
 
 ## Installation Options
 
-### Option 1: Direct MCP Configuration (Recommended - No Local Installation!)
-**Claude Desktop users:**
+### Option 1: Direct MCP Configuration (Recommended)
+No local installation needed! Server runs directly from NPM.
+
+### Option 2: Development Setup
 ```bash
-claude mcp add 3gpp-charging npx 3gpp-mcp-charging@latest serve
-```
-
-**Manual MCP configuration** (for other clients or manual setup):
-Add this to your MCP client configuration:
-```json
-{
-  "mcpServers": {
-    "3gpp-charging": {
-      "command": "npx",
-      "args": ["3gpp-mcp-charging@latest", "serve"],
-      "description": "3GPP Charging & Billing Expert Guidance"
-    }
-  }
-}
-```
-
-That's it! No git clone, no local installation, no configuration files. The MCP server runs directly from NPM on-demand.
-
-### Option 2: NPX Installation with Auto-Configuration
-```bash
-# One-command installation with auto-configuration
-npx 3gpp-mcp-charging@latest init
-
-# Client-specific installation
-npx 3gpp-mcp-charging@latest init --client claude
-npx 3gpp-mcp-charging@latest init --client vscode
-npx 3gpp-mcp-charging@latest init --client cursor
-
-# Or install globally for repeated use
-npm install -g 3gpp-mcp-charging
-3gpp-mcp-charging init
-```
-
-### Option 3: Manual Setup from Source (Development/Backup)
-```bash
-git clone https://github.com/edhijlu/3gpp-mcp-server.git
+# Clone and setup for development
+git clone <repository-url>
 cd 3gpp-mcp-server/3gpp-mcp-server-v2
 npm install
 npm run build
-
-# Use the built-in CLI for configuration
-npm run install:cli
-
-# Or configure manually in your MCP client:
-# Command: node
-# Args: ["dist/index.js"]
-# Working Directory: [full path to this directory]
+npm run start
 ```
 
-### Option 4: Development Mode
+### Option 3: Auto-Configuration
 ```bash
-git clone https://github.com/edhijlu/3gpp-mcp-server.git
-cd 3gpp-mcp-server/3gpp-mcp-server-v2
-npm install
-npm run dev  # Development with watch mode
+npx 3gpp-mcp-charging@latest init
 ```
 
-### 🔍 Check System Status
-```bash
-# Check if MCP server is working
-claude mcp list  # Should show "3gpp-charging: ✓ Connected"
-
-# Check package info and detected AI clients
-npx 3gpp-mcp-charging@latest info
-
-# Test the MCP server directly
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0.0"}}}' | npx 3gpp-mcp-charging@latest serve
-```
-
-## Example Queries to Try
-
-Once connected, try these queries with your AI assistant:
-
-### Beginner Charging Queries
-```
-"Give me a beginner's learning path for understanding 3GPP charging systems"
-"What specifications should I read to understand online vs offline charging?"
-"Explain the 3GPP charging architecture and how CDRs are generated"
-```
-
-### Intermediate Charging Queries
-```
-"How does 5G converged charging work and which specs define CHF procedures?"
-"What's the difference between 4G PCRF and 5G PCF for charging control?"
-"I need to implement Diameter Ro interface - what components do I need to build?"
-```
-
-### Advanced Charging Queries
-```
-"Compare the charging architectures of 4G and 5G systems"
-"What are the key implementation challenges for network slice charging?"
-"Generate a research strategy for migrating from legacy billing to 5G charging"
-```
-
-## Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `npm run build` | Compile TypeScript to JavaScript |
-| `npm run dev` | Watch mode for development |
-| `npm run mcp` | Start MCP server |
-| `npm run mcp:dev` | Development mode with live reload |
-| `npm run install:cli` | Interactive installation |
-| `npm run install:claude` | Install for Claude Desktop |
-| `npm run install:cursor` | Install for Cursor IDE |
-| `npm run install:vscode` | Install for VS Code |
-| `npm run info` | Show system and client info |
-| `npm test` | Run test suite |
-| `npm run lint` | Check code quality |
-
-## Testing
+## Environment Variables
 
 ```bash
-# Run all tests
-npm test
+# Optional: Enhanced API access
+export HUGGINGFACE_TOKEN="your-huggingface-token"
 
-# Run specific test categories
-npm test -- --testNamePattern="GuidanceEngine"
-npm test -- --testNamePattern="KnowledgeBase"
-npm test -- --testNamePattern="Integration"
+# Optional: Custom cache settings
+export CACHE_TIMEOUT="3600"  # seconds
+export ENABLE_CACHING="true"
 ```
 
-## Performance
+## Version Evolution
 
-- **Response Time**: <500ms for guidance generation
-- **Memory Usage**: <100MB typical runtime
-- **Concurrent Users**: 1000+ supported
-- **Startup Time**: <5 seconds initialization
+| Version | Approach | Storage | Architecture |
+|---------|----------|---------|-------------|
+| V1 | Data Hosting | 15GB+ local dataset | Heavy, non-MCP compliant |
+| V2 | Guidance Templates | <100MB knowledge base | Lightweight, guidance-only |
+| **V3.0.0** | **Direct Data Access** | **<10MB (stateless)** | **True MCP API bridge** |
 
-## The v2 Philosophy: "Guide, Don't Host"
+## Development
 
-Unlike traditional approaches that try to host massive charging datasets:
+### Available Scripts
+```bash
+npm run build      # Build TypeScript
+npm run dev        # Development with watch
+npm run start      # Run the server
+npm run test       # Run tests
+npm run lint       # Lint code
+npm run clean      # Clean build artifacts
+```
 
-**v2 provides intelligent charging guidance that:**
-- Teaches charging research methodology
-- Points to authoritative 3GPP charging sources
-- Adapts to user charging expertise level
-- Provides billing implementation roadmaps
-- Stays current with latest charging standards
+### Adding New Tools
+1. Create tool class in `src/tools/`
+2. Define tool schema with input/output types
+3. Implement `execute()` method with API integration
+4. Export tool and register in `src/index.ts`
 
-**Benefits:**
-- 95% resource reduction (50MB vs 15GB+)
-- 10x faster responses (<500ms vs 3-5 seconds)
-- Educational value - teaches charging methodology
-- Always current - guides to live charging sources
-- Highly scalable (1000+ concurrent users)
-- Expert charging domain knowledge
+### API Integration
+- Extend `TSpecLLMClient` for new TSpec-LLM capabilities
+- Extend `TGPPApiClient` for additional 3GPP.org endpoints
+- Add orchestration methods to `APIManager`
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-```bash
-git clone https://github.com/edhijlu/3gpp-mcp-server.git
-cd 3gpp-mcp-server/3gpp-mcp-server-v2
-npm install
-npm run dev  # Start development server
-```
+Contributions welcome! Please focus on:
+- API integration improvements
+- Performance optimizations
+- New MCP tool implementations
+- Documentation enhancements
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details.
 
-## Support
+## Acknowledgments
 
-- **Documentation**: Comprehensive guides in the `/docs` folder
-- **Issues**: [GitHub Issues](https://github.com/edhijlu/3gpp-mcp-server/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/edhijlu/3gpp-mcp-server/discussions)
-
-## Quick Links
-
-- **[Get Started in 5 Minutes](docs/basics/installation-guide.md)**
-- **[See Before/After Examples](docs/comparisons/side-by-side-examples.md)**
-- **[Try a Complete Charging Workflow](docs/how-to/research-5g-charging/)**
-- **[Find Your User Journey](docs/user-journeys/)**
+- Built using the [Model Context Protocol SDK](https://github.com/modelcontextprotocol/sdk)
+- Integrates with [TSpec-LLM dataset](https://huggingface.co/datasets/rasoul-nikbakht/TSpec-LLM)
+- Supports 3GPP specifications from [3GPP.org](https://www.3gpp.org/)
 
 ---
 
-**Ready to transform your 3GPP charging and billing research?** Start with the [installation guide](docs/basics/installation-guide.md) and experience expert-level charging guidance in minutes!
+**V3.0.0: True MCP architecture providing direct specification access through external API integration.**

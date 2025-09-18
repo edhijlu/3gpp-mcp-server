@@ -13,48 +13,37 @@ import {
   GetPromptRequestSchema
 } from '@modelcontextprotocol/sdk/types.js';
 
-import { GuidanceEngine } from './utils/guidance-engine';
+import { APIManager } from './api';
+import type { APIConfig } from './api';
 import {
-  GuideSpecificationSearchTool,
-  Explain3GPPStructureTool,
-  MapRequirementsToSpecsTool,
-  GenerateResearchStrategyTool
+  SearchSpecificationsTool,
+  GetSpecificationDetailsTool,
+  CompareSpecificationsTool,
+  FindImplementationRequirementsTool
 } from './tools';
-import {
-  SeriesKnowledgeResource,
-  ProtocolMappingResource,
-  ResearchPatternsResource
-} from './resources';
-import {
-  ExplainProcedurePrompt,
-  CompareSpecificationsPrompt
-} from './prompts';
+import type {
+  SearchSpecificationsArgs,
+  GetSpecificationDetailsArgs,
+  CompareSpecificationsArgs,
+  FindImplementationRequirementsArgs
+} from './tools';
 
 class ThreeGPPMCPServer {
   private server: Server;
-  private guidanceEngine: GuidanceEngine;
+  private apiManager: APIManager;
 
-  // Tool instances
-  private guideSpecSearchTool!: GuideSpecificationSearchTool;
-  private explain3GPPTool!: Explain3GPPStructureTool;
-  private mapRequirementsTool!: MapRequirementsToSpecsTool;
-  private researchStrategyTool!: GenerateResearchStrategyTool;
-
-  // Resource instances
-  private seriesResource!: SeriesKnowledgeResource;
-  private protocolResource!: ProtocolMappingResource;
-  private patternsResource!: ResearchPatternsResource;
-
-  // Prompt instances
-  private explainPrompt!: ExplainProcedurePrompt;
-  private comparePrompt!: CompareSpecificationsPrompt;
+  // V3 Tool instances
+  private searchTool!: SearchSpecificationsTool;
+  private detailsTool!: GetSpecificationDetailsTool;
+  private compareTool!: CompareSpecificationsTool;
+  private requirementsTool!: FindImplementationRequirementsTool;
 
   constructor() {
     this.server = new Server(
       {
-        name: '3gpp-guidance',
-        version: '2.0.0',
-        description: 'Lightweight 3GPP research guidance MCP server'
+        name: '3gpp-mcp-server',
+        version: '3.0.0',
+        description: '3GPP MCP Server - Direct access to TSpec-LLM and 3GPP specifications'
       },
       {
         capabilities: {
@@ -65,36 +54,32 @@ class ThreeGPPMCPServer {
       }
     );
 
-    this.guidanceEngine = new GuidanceEngine();
+    const apiConfig: APIConfig = {
+      huggingFaceToken: process.env.HUGGINGFACE_TOKEN,
+      enableCaching: true,
+      cacheTimeout: 3600
+    };
+    this.apiManager = new APIManager(apiConfig);
     this.initializeComponents();
     this.setupHandlers();
   }
 
   private initializeComponents() {
-    // Initialize tools
-    this.guideSpecSearchTool = new GuideSpecificationSearchTool(this.guidanceEngine);
-    this.explain3GPPTool = new Explain3GPPStructureTool();
-    this.mapRequirementsTool = new MapRequirementsToSpecsTool(this.guidanceEngine);
-    this.researchStrategyTool = new GenerateResearchStrategyTool(this.guidanceEngine);
-
-    // Initialize resources
-    this.seriesResource = new SeriesKnowledgeResource();
-    this.protocolResource = new ProtocolMappingResource(this.guidanceEngine);
-    this.patternsResource = new ResearchPatternsResource(this.guidanceEngine);
-
-    // Initialize prompts
-    this.explainPrompt = new ExplainProcedurePrompt();
-    this.comparePrompt = new CompareSpecificationsPrompt();
+    // Initialize V3 data access tools
+    this.searchTool = new SearchSpecificationsTool(this.apiManager);
+    this.detailsTool = new GetSpecificationDetailsTool(this.apiManager);
+    this.compareTool = new CompareSpecificationsTool(this.apiManager);
+    this.requirementsTool = new FindImplementationRequirementsTool(this.apiManager);
   }
 
   private setupHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
         tools: [
-          this.guideSpecSearchTool.getDefinition(),
-          this.explain3GPPTool.getDefinition(),
-          this.mapRequirementsTool.getDefinition(),
-          this.researchStrategyTool.getDefinition()
+          this.searchTool.getDefinition(),
+          this.detailsTool.getDefinition(),
+          this.compareTool.getDefinition(),
+          this.requirementsTool.getDefinition()
         ]
       };
     });
@@ -104,17 +89,17 @@ class ThreeGPPMCPServer {
 
       try {
         switch (name) {
-          case 'guide_specification_search':
-            return await this.guideSpecSearchTool.execute(args);
+          case 'search_specifications':
+            return await this.searchTool.execute(args as unknown as SearchSpecificationsArgs);
 
-          case 'explain_3gpp_structure':
-            return await this.explain3GPPTool.execute(args);
+          case 'get_specification_details':
+            return await this.detailsTool.execute(args as unknown as GetSpecificationDetailsArgs);
 
-          case 'map_requirements_to_specs':
-            return await this.mapRequirementsTool.execute(args);
+          case 'compare_specifications':
+            return await this.compareTool.execute(args as unknown as CompareSpecificationsArgs);
 
-          case 'generate_research_strategy':
-            return await this.researchStrategyTool.execute(args);
+          case 'find_implementation_requirements':
+            return await this.requirementsTool.execute(args as unknown as FindImplementationRequirementsArgs);
 
           default:
             throw new McpError(
@@ -133,71 +118,37 @@ class ThreeGPPMCPServer {
       }
     });
 
+    // V3 focuses on tools only - no resources or prompts needed
     this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
-      return {
-        resources: [
-          this.seriesResource.getDefinition(),
-          this.protocolResource.getDefinition(),
-          this.patternsResource.getDefinition()
-        ]
-      };
+      return { resources: [] };
     });
 
-    this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-      const { uri } = request.params;
-
-      switch (uri) {
-        case '3gpp://knowledge/series':
-          return await this.seriesResource.getContent();
-
-        case '3gpp://knowledge/protocols':
-          return await this.protocolResource.getContent();
-
-        case '3gpp://knowledge/research-patterns':
-          return await this.patternsResource.getContent();
-
-        default:
-          throw new McpError(
-            ErrorCode.InvalidRequest,
-            `Unknown resource: ${uri}`
-          );
-      }
+    this.server.setRequestHandler(ReadResourceRequestSchema, async () => {
+      throw new McpError(
+        ErrorCode.InvalidRequest,
+        'Resources not supported in V3 - use tools for data access'
+      );
     });
 
     this.server.setRequestHandler(ListPromptsRequestSchema, async () => {
-      return {
-        prompts: [
-          this.explainPrompt.getDefinition(),
-          this.comparePrompt.getDefinition()
-        ]
-      };
+      return { prompts: [] };
     });
 
-    this.server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-      const { name, arguments: args } = request.params;
-
-      switch (name) {
-        case 'explain_3gpp_procedure':
-          return await this.explainPrompt.generate(args);
-
-        case 'compare_specifications':
-          return await this.comparePrompt.generate(args);
-
-        default:
-          throw new McpError(
-            ErrorCode.InvalidRequest,
-            `Unknown prompt: ${name}`
-          );
-      }
+    this.server.setRequestHandler(GetPromptRequestSchema, async () => {
+      throw new McpError(
+        ErrorCode.InvalidRequest,
+        'Prompts not supported in V3 - use tools for data access'
+      );
     });
   }
 
   async run() {
     try {
-      await this.guidanceEngine.initialize();
+      // No initialization needed for API clients
       const transport = new StdioServerTransport();
       await this.server.connect(transport);
     } catch (error) {
+      console.error('Failed to start 3GPP MCP Server:', error);
       process.exit(1);
     }
   }
