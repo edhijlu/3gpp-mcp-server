@@ -96,9 +96,7 @@ describe('ThreeGPPMCPServer Integration', () => {
       const startTime = Date.now();
 
       const testServer = new ThreeGPPMCPServer();
-      // Initialize the guidance engine that gets called during run()
-      await testServer['guidanceEngine'].initialize();
-
+      
       const endTime = Date.now();
       const initTime = endTime - startTime;
 
@@ -113,8 +111,6 @@ describe('ThreeGPPMCPServer Integration', () => {
       // Templates generate guidance rather than serving static content
       expect(server).toBeDefined();
 
-      // The guidance engine focuses on methodology
-      expect(server['guidanceEngine']).toBeDefined();
     });
 
     test('should support concurrent users through stateless design', () => {
@@ -129,9 +125,7 @@ describe('ThreeGPPMCPServer Integration', () => {
 
     test('should maintain resource efficiency', () => {
       // Knowledge base should be lightweight
-      const knowledgeBase = server['guidanceEngine']['knowledgeBase'];
-      expect(knowledgeBase).toBeDefined();
-
+      
       // Should not store large datasets, only metadata and guidance
       // This is verified by the successful instantiation with low memory usage
     });

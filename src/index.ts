@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+/**
+ * 3GPP MCP Server V3.0.0 - Direct Specification Access
+ *
+ * Copyright (c) 2024, 3GPP MCP Contributors
+ * Licensed under the BSD-3-Clause License
+ *
+ * Built on TSpec-LLM research: https://arxiv.org/abs/2406.01768
+ */
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {

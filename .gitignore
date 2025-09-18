@@ -143,3 +143,6 @@ claude_desktop_config_generated.json
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Project Management Scripts (not committed to repo)
+../manage.sh

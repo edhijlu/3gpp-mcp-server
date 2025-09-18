@@ -1,3 +1,10 @@
+/**
+ * 3GPP MCP Server - API Manager
+ *
+ * Copyright (c) 2024, 3GPP MCP Contributors
+ * Licensed under the BSD-3-Clause License
+ */
+
 import { TSpecLLMClient, TSpecSearchRequest, TSpecSearchResponse } from './tspec-llm-client';
 import { TGPPApiClient, SpecificationMetadata, ReleaseInfo, WorkingGroupInfo } from './tgpp-api-client';
 

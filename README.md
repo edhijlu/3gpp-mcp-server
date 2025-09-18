@@ -4,7 +4,7 @@
 
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-brightgreen)](https://modelcontextprotocol.io/)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 ## What This Does
 
@@ -246,7 +246,7 @@ Contributions welcome! Please focus on:
 
 ## License
 
-MIT License - see LICENSE file for details.
+BSD-3-Clause License - see LICENSE file for details.
 
 ## Acknowledgments
 

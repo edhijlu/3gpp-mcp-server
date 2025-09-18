@@ -1,3 +1,10 @@
+/**
+ * 3GPP MCP Server - 3GPP Official API Client
+ *
+ * Copyright (c) 2024, 3GPP MCP Contributors
+ * Licensed under the BSD-3-Clause License
+ */
+
 import axios, { AxiosInstance } from 'axios';
 import NodeCache from 'node-cache';
 

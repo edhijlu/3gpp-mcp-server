@@ -1,3 +1,12 @@
+/**
+ * 3GPP MCP Server - TSpec-LLM API Client
+ *
+ * Copyright (c) 2024, 3GPP MCP Contributors
+ * Licensed under the BSD-3-Clause License
+ *
+ * Integrates with TSpec-LLM research: https://arxiv.org/abs/2406.01768
+ */
+
 import axios, { AxiosInstance } from 'axios';
 import NodeCache from 'node-cache';
 
