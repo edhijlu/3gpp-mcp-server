@@ -20,16 +20,16 @@ Agent Query → MCP Tools → External APIs → Real Specification Data
 ```
 
 ### Key Benefits:
-- 🏗️ **True MCP Architecture** - Lightweight API bridge (~10MB vs 15GB+)
-- ⚡ **Sub-500ms responses** - Intelligent caching with external API integration
-- 🤖 **Agent-optimized** - Structured JSON responses for AI agent consumption
-- 📊 **Real specification data** - Direct access to TSpec-LLM's 535M word dataset
-- 🔗 **External API integration** - Hugging Face + 3GPP.org APIs
-- 📈 **Infinite scalability** - Stateless API calls, no local storage limits
+- **True MCP Architecture** - Lightweight API bridge (~10MB vs 15GB+)
+- **Sub-500ms responses** - Intelligent caching with external API integration
+- **Agent-optimized** - Structured JSON responses for AI agent consumption
+- **Real specification data** - Direct access to TSpec-LLM's 535M word dataset
+- **External API integration** - Hugging Face + 3GPP.org APIs
+- **Infinite scalability** - Stateless API calls, no local storage limits
 
 ## Quick Start (30 Seconds!)
 
-### ⚡ Direct MCP Setup (Recommended)
+### Direct MCP Setup (Recommended)
 
 **Claude Desktop users:**
 ```bash
@@ -53,7 +53,7 @@ Add this to your MCP configuration:
 }
 ```
 
-### 🎯 Alternative: Auto-Configuration
+### Alternative: Auto-Configuration
 
 ```bash
 # One-command installation with auto-configuration
@@ -65,7 +65,7 @@ npx 3gpp-mcp-charging@latest init --client vscode
 npx 3gpp-mcp-charging@latest init --client cursor
 ```
 
-### 🧪 Test It Works
+### Test It Works
 
 Ask your AI assistant: *"Search for 5G CHF implementation requirements in TS 32.290"*
 

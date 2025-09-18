@@ -62,7 +62,7 @@ function getConfigPath(client, platform = os.platform()) {
 
 function displayBanner() {
   const banner = boxen(
-    chalk.cyan.bold('🚀 3GPP Charging & Billing MCP Server') + '\n' +
+    chalk.cyan.bold('3GPP Charging & Billing MCP Server') + '\n' +
     chalk.gray('Expert guidance for telecom charging systems') + '\n\n' +
     chalk.yellow('Transform your AI into a 3GPP charging expert!'),
     {
@@ -234,7 +234,7 @@ program
       const detectedClients = detectInstalledClients();
 
       if (detectedClients.length === 0 && !options.client) {
-        console.log(chalk.yellow('⚠️  No AI clients detected. You can still install and configure manually.'));
+        console.log(chalk.yellow('Warning: No AI clients detected. You can still install and configure manually.'));
       }
 
       let selectedClient = options.client;
@@ -279,7 +279,7 @@ program
         const config = generateMCPConfig(installPath, selectedClient);
         await writeConfig(configPath, config, selectedClient);
 
-        console.log(chalk.green(`✅ Configuration written to: ${configPath}`));
+        console.log(chalk.green(`Success: Configuration written to: ${configPath}`));
       }
 
       // Success message
@@ -311,7 +311,7 @@ program
       }
 
     } catch (error) {
-      console.error(chalk.red('❌ Installation failed:'), error.message);
+      console.error(chalk.red('Error: Installation failed:'), error.message);
       process.exit(1);
     }
   });
@@ -337,7 +337,7 @@ program
     }
 
     if (!serverPath) {
-      console.error(chalk.red('❌ Server files not found. Possible paths checked:'));
+      console.error(chalk.red('Error: Server files not found. Possible paths checked:'));
       possiblePaths.forEach(p => console.error(chalk.gray(`  ${p}`)));
       process.exit(1);
     }
