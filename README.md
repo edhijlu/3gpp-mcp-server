@@ -250,6 +250,17 @@ MIT License - see LICENSE file for details.
 
 ## Acknowledgments
 
+### Research Foundation
+This project's V3.0.0 architecture was fundamentally inspired by the TSpec-LLM research:
+
+**TSpec-LLM: A Large Language Model for 3GPP Specifications**
+- Paper: https://arxiv.org/abs/2406.01768
+- Authors: Rasoul Nikbakht, et al.
+- Dataset: [TSpec-LLM on Hugging Face](https://huggingface.co/datasets/rasoul-nikbakht/TSpec-LLM)
+
+Originally planned as a document reference MCP, discovery of the TSpec-LLM research paper fundamentally changed our approach. The paper's demonstration of significant accuracy improvements (25+ percentage points) through direct LLM access to 3GPP specifications convinced us to pivot from document hosting to external API integration with their comprehensive 535M word dataset.
+
+### Technical Foundation
 - Built using the [Model Context Protocol SDK](https://github.com/modelcontextprotocol/sdk)
 - Integrates with [TSpec-LLM dataset](https://huggingface.co/datasets/rasoul-nikbakht/TSpec-LLM)
 - Supports 3GPP specifications from [3GPP.org](https://www.3gpp.org/)
