@@ -95,6 +95,34 @@ export class TSpecLLMClient {
     // Mock results based on query content
     const mockResults: TSpecSearchResult[] = [];
 
+    // Fuzzy matching for specification IDs
+    const fuzzyMatches = this.findFuzzySpecificationMatches(query);
+    if (fuzzyMatches.length > 0) {
+      fuzzyMatches.forEach(match => {
+        mockResults.push({
+          content: `Specification Match: ${match.specId}
+
+Title: ${this.getSpecificationTitle(match.specId)}
+Working Group: ${this.getWorkingGroup(match.specId)}
+Summary: ${this.getSpecificationSummary(match.specId)}
+
+This specification was found through fuzzy matching with confidence score: ${match.confidence.toFixed(2)}
+
+For detailed information about this specification, please search using the exact specification ID: "${match.specId}"`,
+          source_specification: match.specId,
+          release: 'Rel-17',
+          section: 'Overview',
+          relevance_score: match.confidence,
+          metadata: {
+            specification_id: match.specId,
+            working_group: this.getWorkingGroup(match.specId),
+            document_type: 'Technical Specification',
+            keywords: ['fuzzy-match', 'specification-lookup', match.specId.toLowerCase().replace(/\s+/g, '-')]
+          }
+        });
+      });
+    }
+
     if (query.includes('charging') || query.includes('chf') || query.includes('billing')) {
       mockResults.push({
         content: `The Charging Function (CHF) is a key component in the 5G charging architecture that provides converged online and offline charging services. The CHF supports service-based interfaces using HTTP/2 REST APIs as defined in TS 32.290.
@@ -240,6 +268,206 @@ Security Features:
       });
     }
 
+    if (query.includes('notifyid') || query.includes('29.594') || query.includes('event exposure') || query.includes('n28')) {
+      mockResults.push({
+        content: `TS 29.594 Event Exposure API - notifyID Field:
+
+The notifyID field in TS 29.594 serves as a unique identifier for event exposure notifications in the 5G Service Based Architecture:
+
+1. notifyID Field Definition:
+   - Type: string
+   - Format: UUID or vendor-specific identifier
+   - Purpose: Uniquely identifies a notification within the scope of the subscription
+   - Location: EventNotification data structure
+
+2. Usage in N28 Interface:
+   - Used in POST /events/{subscriptionId}/notify operations
+   - Enables correlation between notifications and subscriptions
+   - Supports duplicate detection and ordering
+   - Required field in EventNotification structure
+
+3. Implementation Requirements (Release 15):
+   - MUST be unique per subscription instance
+   - SHOULD follow UUID format (RFC 4122)
+   - MUST be included in all event notifications
+   - Used for notification acknowledgment and tracking
+
+4. Event Exposure Procedures:
+   - Subscription creation via POST /subscriptions
+   - Event notification via POST /events/{subscriptionId}/notify
+   - Subscription modification via PUT /subscriptions/{subscriptionId}
+   - Unsubscription via DELETE /subscriptions/{subscriptionId}
+
+5. N28 Interface Context:
+   - Interface between Network Functions and Network Exposure Function (NEF)
+   - Supports event monitoring and exposure to external applications
+   - Enables real-time event notifications with proper identification
+
+Data Structure Example:
+{
+  "notifyId": "123e4567-e89b-12d3-a456-426614174000",
+  "eventNotifs": [...],
+  "subscriptionId": "sub-001"
+}`,
+        source_specification: 'TS 29.594',
+        release: 'Rel-15',
+        section: '5.2.4',
+        relevance_score: 0.98,
+        metadata: {
+          specification_id: 'TS 29.594',
+          working_group: 'SA2',
+          document_type: 'Technical Specification',
+          keywords: ['notifyid', 'event-exposure', 'n28', 'notifications', 'api']
+        }
+      });
+
+      if (query.toLowerCase().includes('r15') || query.toLowerCase().includes('rel-15') || query.toLowerCase().includes('release 15')) {
+        mockResults.push({
+          content: `TS 29.594 Release 15 Specific Features:
+
+Release 15 introduces the foundational event exposure capabilities with notifyID field support:
+
+1. notifyID Field in Release 15:
+   - Initial specification of unique notification identifier
+   - Mandatory field for all event notifications
+   - Support for basic UUID format
+   - Foundation for subscription management
+
+2. N28 Interface Release 15 Capabilities:
+   - Basic event exposure between NFs and NEF
+   - Support for monitoring configuration events
+   - Location reporting event exposure
+   - Communication failure detection
+
+3. Release 15 Implementation Notes:
+   - notifyID format: UUID recommended but not mandatory
+   - Limited event types compared to later releases
+   - Basic subscription lifecycle management
+   - Foundation for 5G SA event exposure architecture
+
+4. API Operations in Release 15:
+   - POST /subscriptions (create event subscription)
+   - GET /subscriptions/{subscriptionId} (retrieve subscription)
+   - PUT /subscriptions/{subscriptionId} (modify subscription)
+   - DELETE /subscriptions/{subscriptionId} (cancel subscription)
+   - POST /events/{subscriptionId}/notify (event notification with notifyID)
+
+Backward Compatibility:
+- Release 15 notifyID implementation is forward compatible
+- Later releases enhance but maintain R15 basic functionality`,
+          source_specification: 'TS 29.594',
+          release: 'Rel-15',
+          section: '4.1.1',
+          relevance_score: 0.96,
+          metadata: {
+            specification_id: 'TS 29.594',
+            working_group: 'SA2',
+            document_type: 'Technical Specification',
+            keywords: ['notifyid', 'release-15', 'n28', 'event-exposure', 'baseline']
+          }
+        });
+      }
+    }
+
+    if (query.includes('n28') || query.includes('nef') || query.includes('network exposure')) {
+      mockResults.push({
+        content: `N28 Interface Specification:
+
+The N28 interface connects Network Functions to the Network Exposure Function (NEF) in 5G Service Based Architecture:
+
+1. N28 Interface Overview:
+   - Purpose: Enables secure exposure of network capabilities to external applications
+   - Architecture: Service-based interface using HTTP/2 REST APIs
+   - Authentication: OAuth 2.0 and TLS mutual authentication
+   - Data Format: JSON over HTTPS
+
+2. Key N28 Services:
+   - Event monitoring and notification services
+   - Location services (positioning, tracking)
+   - Device triggering and configuration
+   - Quality of Service (QoS) management
+   - Session management exposure
+
+3. N28 Interface Procedures:
+   - Service registration and discovery
+   - Subscription management for events
+   - Real-time event notification delivery
+   - Policy and charging control exposure
+   - Analytics and monitoring data exposure
+
+4. Security Requirements:
+   - Mutual TLS authentication between NF and NEF
+   - OAuth 2.0 token-based authorization
+   - API rate limiting and quota management
+   - Audit logging for all exposed operations
+
+5. Implementation Considerations:
+   - HTTP/2 protocol mandatory for performance
+   - JSON Schema validation for all API operations
+   - Error handling with standardized problem details
+   - Scalability through stateless design`,
+        source_specification: 'TS 23.502',
+        release: 'Rel-15',
+        section: '4.3.6',
+        relevance_score: 0.93,
+        metadata: {
+          specification_id: 'TS 23.502',
+          working_group: 'SA2',
+          document_type: 'Technical Specification',
+          keywords: ['n28', 'nef', 'network-exposure', 'interface', 'external-exposure']
+        }
+      });
+
+      mockResults.push({
+        content: `N28 Event Exposure Implementation:
+
+Detailed implementation guidance for N28 interface event exposure capabilities:
+
+1. Event Subscription Process:
+   - External application authenticates with NEF
+   - NEF validates application credentials and permissions
+   - Application creates event subscription via POST /subscriptions
+   - NEF forwards subscription to relevant Network Function
+   - Subscription confirmation returned with unique subscriptionId
+
+2. Event Notification Flow:
+   - Network Function detects subscribed event occurrence
+   - NF sends notification to NEF via internal interface
+   - NEF processes and enriches notification data
+   - NEF delivers notification to external application via N28
+   - Notification includes notifyID for correlation and tracking
+
+3. N28 API Endpoints:
+   - POST /subscriptions - Create event subscription
+   - GET /subscriptions/{subscriptionId} - Retrieve subscription details
+   - PUT /subscriptions/{subscriptionId} - Modify existing subscription
+   - DELETE /subscriptions/{subscriptionId} - Cancel subscription
+   - POST /events/{subscriptionId}/notify - Receive event notifications
+
+4. Error Handling:
+   - HTTP status codes for operation results
+   - ProblemDetails structure for error information
+   - Retry mechanisms for failed notifications
+   - Fallback procedures for NEF unavailability
+
+5. Performance Requirements:
+   - Sub-second notification delivery for real-time events
+   - Support for high-frequency event streams
+   - Efficient batching for bulk notifications
+   - Rate limiting to prevent system overload`,
+        source_specification: 'TS 29.122',
+        release: 'Rel-15',
+        section: '5.2',
+        relevance_score: 0.91,
+        metadata: {
+          specification_id: 'TS 29.122',
+          working_group: 'SA2',
+          document_type: 'Technical Specification',
+          keywords: ['n28', 'event-exposure', 'implementation', 'api', 'notifications']
+        }
+      });
+    }
+
     // Apply filters
     let filteredResults = mockResults;
 
@@ -257,6 +485,41 @@ Security Features:
       );
     }
 
+    // If no results found, add search suggestions
+    if (filteredResults.length === 0) {
+      const suggestions = this.generateSearchSuggestions(query);
+      mockResults.push({
+        content: `No direct results found for query: "${request.query}"
+
+Search Suggestions:
+${suggestions.map((suggestion, index) => `${index + 1}. ${suggestion.suggestion} (Reason: ${suggestion.reason})`).join('\n')}
+
+Tip: Try searching with:
+- Exact specification numbers (e.g., "TS 29.594", "32.290")
+- Key technical terms (e.g., "charging", "authentication", "handover")
+- Interface names (e.g., "N28", "CHF", "NEF")
+- Release-specific queries (e.g., "Release 15", "Rel-16")
+
+Available specification areas:
+- Charging and Billing: TS 32.x series
+- Security: TS 33.x series
+- Radio Access: TS 38.x series
+- System Architecture: TS 23.x series
+- APIs and Interfaces: TS 29.x series`,
+        source_specification: 'Search Guidance',
+        release: 'General',
+        section: 'Search Help',
+        relevance_score: 0.1,
+        metadata: {
+          specification_id: 'SEARCH_SUGGESTIONS',
+          working_group: 'System',
+          document_type: 'Search Guidance',
+          keywords: ['search-help', 'suggestions', 'guidance']
+        }
+      });
+      return mockResults;
+    }
+
     // Sort by relevance score and limit results
     return filteredResults
       .sort((a, b) => b.relevance_score - a.relevance_score)
@@ -265,6 +528,136 @@ Security Features:
 
   private generateCacheKey(request: TSpecSearchRequest): string {
     return `tspec:${JSON.stringify(request)}`;
+  }
+
+  private findFuzzySpecificationMatches(query: string): Array<{specId: string, confidence: number}> {
+    const knownSpecs = [
+      'TS 32.290', 'TS 32.240', 'TS 38.331', 'TS 33.501',
+      'TS 23.501', 'TS 23.502', 'TS 29.594', 'TS 29.122'
+    ];
+
+    const matches: Array<{specId: string, confidence: number}> = [];
+
+    for (const spec of knownSpecs) {
+      const confidence = this.calculateSimilarity(query, spec.toLowerCase());
+
+      // Also check for partial matches without "TS" prefix
+      const specNumber = spec.replace('TS ', '');
+      const partialConfidence = this.calculateSimilarity(query, specNumber.toLowerCase());
+
+      const maxConfidence = Math.max(confidence, partialConfidence);
+
+      if (maxConfidence > 0.5) {
+        matches.push({ specId: spec, confidence: maxConfidence });
+      }
+    }
+
+    // Sort by confidence and return top 3 matches
+    return matches
+      .sort((a, b) => b.confidence - a.confidence)
+      .slice(0, 3);
+  }
+
+  private calculateSimilarity(str1: string, str2: string): number {
+    // Simple fuzzy matching using Levenshtein distance
+    const longer = str1.length > str2.length ? str1 : str2;
+    const shorter = str1.length > str2.length ? str2 : str1;
+
+    if (longer.length === 0) return 1.0;
+
+    // Check for exact substring match first
+    if (longer.includes(shorter)) return 0.9;
+
+    // Calculate Levenshtein distance
+    const distance = this.levenshteinDistance(str1, str2);
+    return (longer.length - distance) / longer.length;
+  }
+
+  private levenshteinDistance(str1: string, str2: string): number {
+    const matrix = Array(str2.length + 1).fill(null).map(() => Array(str1.length + 1).fill(null));
+
+    for (let i = 0; i <= str1.length; i++) matrix[0][i] = i;
+    for (let j = 0; j <= str2.length; j++) matrix[j][0] = j;
+
+    for (let j = 1; j <= str2.length; j++) {
+      for (let i = 1; i <= str1.length; i++) {
+        const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+        matrix[j][i] = Math.min(
+          matrix[j][i - 1] + 1,     // deletion
+          matrix[j - 1][i] + 1,     // insertion
+          matrix[j - 1][i - 1] + indicator // substitution
+        );
+      }
+    }
+
+    return matrix[str2.length][str1.length];
+  }
+
+  private generateSearchSuggestions(query: string): Array<{suggestion: string, reason: string}> {
+    const suggestions: Array<{suggestion: string, reason: string}> = [];
+
+    // Suggest related terms based on partial matches
+    if (query.includes('notify') || query.includes('event')) {
+      suggestions.push({
+        suggestion: 'TS 29.594 notifyID',
+        reason: 'Event exposure API with notification identifiers'
+      });
+      suggestions.push({
+        suggestion: 'N28 interface',
+        reason: 'Interface for network exposure and event notifications'
+      });
+    }
+
+    if (query.includes('29') || query.includes('594')) {
+      suggestions.push({
+        suggestion: 'TS 29.594',
+        reason: 'Network Exposure Function Northbound APIs'
+      });
+      suggestions.push({
+        suggestion: 'event exposure',
+        reason: 'Related to TS 29.594 functionality'
+      });
+    }
+
+    if (query.includes('n28') || query.includes('exposure')) {
+      suggestions.push({
+        suggestion: 'NEF',
+        reason: 'Network Exposure Function'
+      });
+      suggestions.push({
+        suggestion: 'TS 29.122',
+        reason: 'T8 reference point for Northbound APIs'
+      });
+    }
+
+    if (query.includes('r15') || query.includes('rel') || query.includes('release')) {
+      suggestions.push({
+        suggestion: 'Release 15 specifications',
+        reason: 'Search for R15-specific features'
+      });
+      suggestions.push({
+        suggestion: 'Rel-15 baseline features',
+        reason: 'Foundational 5G SA capabilities'
+      });
+    }
+
+    // Add general suggestions if no specific matches
+    if (suggestions.length === 0) {
+      suggestions.push({
+        suggestion: 'charging CHF',
+        reason: 'Popular search topic - 5G charging system'
+      });
+      suggestions.push({
+        suggestion: 'authentication 5G-AKA',
+        reason: 'Popular search topic - 5G security'
+      });
+      suggestions.push({
+        suggestion: 'handover mobility',
+        reason: 'Popular search topic - radio procedures'
+      });
+    }
+
+    return suggestions.slice(0, 5); // Limit to 5 suggestions
   }
 
   async getSpecificationInfo(specId: string): Promise<any> {
@@ -296,7 +689,9 @@ Security Features:
       'TS 38.331': '5G; NR; Radio Resource Control (RRC); Protocol specification',
       'TS 33.501': 'Security architecture and procedures for 5G System',
       'TS 23.501': 'System architecture for the 5G System (5GS)',
-      'TS 23.502': 'Procedures for the 5G System (5GS)'
+      'TS 23.502': 'Procedures for the 5G System (5GS)',
+      'TS 29.594': '5G System; Network Exposure Function Northbound APIs; Stage 3',
+      'TS 29.122': 'T8 reference point for Northbound APIs'
     };
     return titles[specId] || `${specId} - 3GPP Technical Specification`;
   }
@@ -308,7 +703,9 @@ Security Features:
       'TS 38.331': 'RAN2',
       'TS 33.501': 'SA3',
       'TS 23.501': 'SA2',
-      'TS 23.502': 'SA2'
+      'TS 23.502': 'SA2',
+      'TS 29.594': 'SA2',
+      'TS 29.122': 'SA2'
     };
     return workingGroups[specId] || 'Unknown';
   }
@@ -320,7 +717,9 @@ Security Features:
       'TS 38.331': 'Specifies the Radio Resource Control protocol for 5G New Radio including connection management and mobility procedures.',
       'TS 33.501': 'Defines the comprehensive security architecture for 5G systems including authentication, authorization, and privacy protection.',
       'TS 23.501': 'Describes the overall system architecture for 5G including network functions, interfaces, and service-based architecture.',
-      'TS 23.502': 'Specifies detailed procedures for 5G system operations including registration, session management, and mobility.'
+      'TS 23.502': 'Specifies detailed procedures for 5G system operations including registration, session management, and mobility.',
+      'TS 29.594': 'Specifies the Network Exposure Function (NEF) Northbound APIs for event exposure and network capability exposure to external applications.',
+      'TS 29.122': 'Defines the T8 reference point for Northbound APIs between the Service Capability Exposure Function and external applications.'
     };
     return summaries[specId] || 'Technical specification for 3GPP telecommunications systems.';
   }
