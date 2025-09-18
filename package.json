@@ -1,6 +1,6 @@
 {
   "name": "3gpp-mcp-charging",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "3GPP MCP Server V3.0.0 - Direct access to TSpec-LLM dataset (arxiv.org/abs/2406.01768) and 3GPP specifications via external APIs",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -30,7 +30,18 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run clean && npm run build"
   },
-  "keywords": ["mcp", "3gpp", "telecom", "charging", "billing", "revenue", "ai", "ocs", "chf", "diameter"],
+  "keywords": [
+    "mcp",
+    "3gpp",
+    "telecom",
+    "charging",
+    "billing",
+    "revenue",
+    "ai",
+    "ocs",
+    "chf",
+    "diameter"
+  ],
   "author": "3GPP MCP Contributors",
   "license": "MIT",
   "repository": {
